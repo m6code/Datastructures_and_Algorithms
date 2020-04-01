@@ -11,8 +11,7 @@ public class EmployeeDoublyLinkedList {
 
         if (head == null) {
             tail = node;
-        }
-        else {
+        } else {
             head.setPrevious(node);
             node.setNext(head);
         }
@@ -25,8 +24,7 @@ public class EmployeeDoublyLinkedList {
         EmployeeNode node = new EmployeeNode(employee);
         if (tail == null) {
             head = node;
-        }
-        else {
+        } else {
             tail.setNext(node);
             node.setPrevious(tail);
         }
@@ -42,8 +40,31 @@ public class EmployeeDoublyLinkedList {
         // if the existing employee doesn't exist in the list
 
         // add your code here
+        EmployeeNode current = head;
+        if (isEmpty()) {
+            return false;
+        }
+        while (current != null && !current.getEmployee().equals(existingEmployee)) {
+            current = current.getNext();
+        }
 
-        return false;
+        if (current == null) {
+            return false;
+        }
+
+        EmployeeNode newNode = new EmployeeNode(newEmployee);
+        newNode.setPrevious(current.getPrevious());
+        newNode.setNext(current);
+        current.setPrevious(newNode);
+
+        if (head == current) {
+            head = newNode;
+        } else {
+            newNode.getPrevious().setNext(newNode);
+        }
+        size++;
+        return true;
+
     }
 
     public EmployeeNode removeFromFront() {
@@ -55,8 +76,7 @@ public class EmployeeDoublyLinkedList {
 
         if (head.getNext() == null) {
             tail = null;
-        }
-        else {
+        } else {
             head.getNext().setPrevious(null);
         }
 
@@ -75,8 +95,7 @@ public class EmployeeDoublyLinkedList {
 
         if (tail.getPrevious() == null) {
             head = null;
-        }
-        else {
+        } else {
             tail.getPrevious().setNext(null);
         }
 
